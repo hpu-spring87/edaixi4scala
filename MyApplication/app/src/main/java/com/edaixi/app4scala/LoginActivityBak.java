@@ -346,5 +346,6 @@ public class LoginActivityBak extends AppCompatActivity implements LoaderCallbac
             showProgress(false);
         }
     }
-}
 
+
+}

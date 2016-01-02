@@ -9,7 +9,7 @@ import android.support.annotation.NonNull
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.app.LoaderManager.LoaderCallbacks
-import android.content.Loader
+import android.content.{Intent, Loader}
 import android.database.Cursor
 import android.os.AsyncTask
 import android.os.Build
@@ -63,11 +63,28 @@ class LoginActivity extends AppCompatActivity with LoaderCallbacks[Cursor] {
   private var mPasswordView: EditText = null
   private var mProgressView: View = null
   private var mLoginFormView: View = null
+  private val mLoginUtil: LoginUtil = new LoginUtil(LoginActivity.this)
 
   protected override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_login)
     mEmailView = findViewById(R.id.email).asInstanceOf[AutoCompleteTextView]
+    mEmailView.addTextChangedListener(new TextWatcher {
+      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
+
+      override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
+        if (s.toString.length == 11) {
+          new Thread(new Runnable {
+            override def run(): Unit = {
+              mLoginUtil.getsms(s.toString)
+            }
+          }).start()
+          Snackbar.make(mEmailView, "已经发生验证码到手机号~~" + s.toString, Snackbar.LENGTH_SHORT).show()
+        }
+      }
+
+      override def afterTextChanged(s: Editable): Unit = {}
+    })
     populateAutoComplete
     mPasswordView = findViewById(R.id.password).asInstanceOf[EditText]
     mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -167,6 +184,19 @@ class LoginActivity extends AppCompatActivity with LoaderCallbacks[Cursor] {
     }
     else {
       showProgress(true)
+      //登录逻辑
+      var result: String = null;
+      new Thread(new Runnable {
+        override def run(): Unit = {
+          result = mLoginUtil.getlogin(email, password);
+          if (result != null && result.equals("true")) {
+            finish();
+            startActivity(new Intent(LoginActivity.this, classOf[MainActivity]).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+          } else {
+            Snackbar.make(mLoginFormView, "~~登录失败,重试~~", Snackbar.LENGTH_SHORT).show()
+          }
+        }
+      }).start();
       //mAuthTask = new LoginActivity#UserLoginTask(email, password)
       //mAuthTask.execute(null.asInstanceOf[Void])
     }

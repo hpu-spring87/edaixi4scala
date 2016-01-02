@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/order_list_bg"
+    android:gravity="center_vertical"
+    android:padding="16dp"
+    tools:context=".TradingActivityBak">
+
+
+    <ImageView
+        android:id="@+id/iv_order_item"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/empty_icon" />
+
+
+    <TextView
+        android:id="@+id/tv_order_cate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_order_item"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/iv_order_item"
+        android:text="洗衣"
+        android:textColor="@android:color/white" />
+
+
+    <TextView
+        android:id="@+id/tv_order_sn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_order_cate"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_order_item"
+        android:text="订单编号: 1111111"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_order_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_order_sn"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_order_item"
+        android:text="取件时间: 1月1号 6:00"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_order_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_order_time"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_order_item"
+        android:text="取件时间: 1月1号 6:00"
+        android:textColor="@android:color/white" />
+
+
+</RelativeLayout>

@@ -3,7 +3,10 @@ package com.edaixi.app4scala.http;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.edaixi.app4scala.moudle.UserBean;
 import com.edaixi.app4scala.utils.PrefUtils;
 
 import org.json.JSONException;
@@ -145,10 +148,10 @@ public class LoginUtil {
                 if (json.getBoolean("ret")) {
                     str = "true";
                     String datajson = json.getString("data");
-                    JSONObject jsonObject = new JSONObject(datajson);
+                    UserBean userbean = JSON.parseObject(datajson, UserBean.class);
                     prefUtils.saveToPrefs(mContext, "Is_Logined", "true");
-                    prefUtils.saveToPrefs(mContext, "User_Token", jsonObject.getString("user_token"));
-                    prefUtils.saveToPrefs(mContext, "User_Id", jsonObject.getString("user_id"));
+                    prefUtils.saveToPrefs(mContext, "User_Token", userbean.getUser_token());
+                    prefUtils.saveToPrefs(mContext, "User_Id", userbean.getUser_id());
                 } else {
                     try {
                         json = new JSONObject(result);

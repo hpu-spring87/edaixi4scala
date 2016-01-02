@@ -48,6 +48,9 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".TradingActivity"></activity>
+        <activity android:name=".OrderListActivity"></activity>
+        <activity android:name=".CouponListActivity"></activity>
+        <activity android:name=".WebViewActivity"></activity>
     </application>
 
 </manifest>

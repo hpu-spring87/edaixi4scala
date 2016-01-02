@@ -17,11 +17,7 @@ import java.util.List;
  */
 public class XAuathUtil {
 
-    static PrefUtils prefUtils;
-
-    static {
-        prefUtils = new PrefUtils();
-    }
+    static PrefUtils prefUtils = new PrefUtils();
 
     /***
      * @param mContext   Context
@@ -37,9 +33,10 @@ public class XAuathUtil {
         httpParams.put("user_type", "3");
         httpParams.put("market", "");
         //应用市场
-        httpParams.put("mark", "Default");
+        httpParams.put("mark", "QiHu360");
         httpParams.put("city_id", "1");
-        httpParams.put("user_id", prefUtils.getFromPrefs(mContext, "User_Id", "0"));
+        if (!prefUtils.getFromPrefs(mContext, "User_Id", "0").equals("0"))
+            httpParams.put("user_id", prefUtils.getFromPrefs(mContext, "User_Id", "0"));
         httpParams.put("ts", String.valueOf(DateUtil.getTimestamp())); //时间戳
         List<String> paramsList = new ArrayList<>();
         for (String key : httpParams.keySet()) {

@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:ignore="MergeRootFrame">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/coupon_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"
+            android:scrollbars="none"></ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>

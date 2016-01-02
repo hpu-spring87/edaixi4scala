@@ -18,9 +18,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.edaixi.app4scala.likebutton.LikeButtonView;
+import com.edaixi.app4scala.utils.PrefUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    PrefUtils prefUtils = new PrefUtils();
+    String result = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "亲,侧滑联系我们客服哦", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -46,6 +51,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        result = prefUtils.getFromPrefs(getApplicationContext(), "Is_Logined", "'false");
+        if (result.equals("true")) {
+            navigationView.getMenu().findItem(R.id.nav_send).setTitle("退出账户");
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_send).setTitle("登录账户");
+        }
 
         TextView textView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textView);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +75,11 @@ public class MainActivity extends AppCompatActivity
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             //execute the task
-                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            if (result.equals("true")) {
+                                startActivity(new Intent(MainActivity.this, TradingActivity.class));
+                            } else {
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            }
                         }
                     }, 1000);
             }
@@ -112,16 +127,44 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            if (result.equals("true")) {
+                startActivity(new Intent(MainActivity.this, OrderListActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
         } else if (id == R.id.nav_gallery) {
+            if (result.equals("true")) {
+                startActivity(new Intent(MainActivity.this, CouponListActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
 
         } else if (id == R.id.nav_slideshow) {
+
+            if (result.equals("true")) {
+                startActivity(new Intent(MainActivity.this, WebViewActivity.class).putExtra("WebFlag", 1));
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
 
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT,
+                    "机智如我,新洗衣神器: http://android.myapp.com/myapp/detail.htm?apkName=com.edaixi.activity");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
 
+        } else if (id == R.id.nav_send) {
+            if (result.equals("true")) {
+                item.setTitle("登录账户");
+                prefUtils.saveToPrefs(getApplicationContext(), "Is_Logined", "false");
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
