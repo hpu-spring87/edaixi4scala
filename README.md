@@ -7,4 +7,4 @@ e袋洗安卓客户端，scala版本，本来准备全部用scala实现，由于
 
 看一下java 和 Scala 混合效果吧。
 
-[![App showcase](https://github.com/hpu-spring87/edaixi4scala/blob/master/edaixiscreenshot.png)](https://www.youtube.com/watch?v=j_6kRLjheng&feature=youtu.be)
+[![App showcase](https://github.com/hpu-spring87/edaixi4scala/blob/master/edaixiscreenshot.png)](https://www.youtube.com/watch?v=kw7XBNEoAes&feature=youtu.be)
